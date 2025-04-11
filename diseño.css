@@ -1,0 +1,457 @@
+
+/* Estilo general: base para todos los dispositivos */
+
+body {
+  background-color: #e3eaf5; /* Fondo claro y suave */
+  color: #2c3e50; /* Texto oscuro */
+  line-height: 1.8; /* Espaciado entre líneas */
+  margin: 0;
+  padding: 0 1.25em; /* Espaciado con em */
+}
+
+/* Estilo general de todos los p */
+p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: #2c3e50;
+  text-align: justify;
+  font-weight: normal;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%; /* Ajusta si quieres limitar el ancho */
+}
+
+/* Estilo del botón para cambiar al modo oscuro */
+#boton-cambiar-modo {
+  display: block; /* Asegura que el botón sea un elemento de bloque */
+  margin: 20px auto; /* Centra el botón horizontalmente y agrega espacio vertical */
+  padding: 15px 30px; /* Tamaño más grande del botón */
+  background-color: #1289d1; /* Azul llamativo */
+  color: white; /* Texto blanco */
+  font-size: 1.2em; /* Tamaño del texto más grande */
+  font-family: 'Arial', sans-serif; /* Fuente clara y moderna */
+  border: none; /* Sin bordes */
+  border-radius: 10px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre él */
+  transition: all 0.3s ease; /* Transiciones suaves */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+#boton-cambiar-modo:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el cursor */
+  transform: scale(1.1); /* Zoom al pasar el cursor */
+}
+
+#boton-cambiar-modo:active {
+  background-color: #003f8f; /* Azul más oscuro al presionar */
+  transform: scale(0.95); /* Pequeño efecto al presionar */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); /* Sombra más marcada */
+}
+
+
+
+/* Pantallas grandes (mínimo 750px) */
+@media all and (min-width: 750px) {
+  body {
+    font-size: 1.2em; /* Escala el tamaño de letra a un 20% más grande */
+    font-family: 'Arial', 'Courier New', monospace; /* Fuente técnica y sobria */
+  }
+  img.imagen_main-pantalla_grande {
+    max-width: 60%; /* Evita que la imagen supere el ancho del contenedor */
+    height: auto; /* Mantén la proporción de la imagen */
+    display: block; /* Mostrar la imagen grande */
+  }
+  img.imagen_main-pantalla_pequena {
+    display: none; /* Ocultar la imagen pequeña */
+  }
+}
+
+/* Pantallas pequeñas (máximo 749px) */
+@media all and (max-width: 749px) {
+  body {
+    font-size: 0.5em; /* Reduce el tamaño de letra a un 50% del tamaño base */
+    background-color: gray; /* Fondo gris */
+    font-family: 'Arial', cursive; /* Fuente desenfadada y amigable */
+  }
+  img.imagen_main-pantalla_grande {
+    display: none; /* Ocultar la imagen grande */
+  }
+  img.imagen_main-pantalla_pequena {
+    max-width: 28%; /* Evita que la imagen supere un 28% del ancho en pantallas pequeñas */
+    height: auto; /* Mantén la proporción de la imagen */
+    display: block; /* Mostrar la imagen pequeña */
+    box-shadow: 0 0.625em 1.25em rgba(255, 0, 0, 0.4) !important; /* Sombra roja */
+  }
+}
+
+
+
+/* Estilo para el header */
+header.header-principal {
+  background-color: #1289d1; /* Azul destacado */
+  color: #ffffff; /* Texto en blanco */
+  text-align: center; /* Centra el texto dentro del header */
+  margin-top: 35px;
+  padding: 1.25em 0; /* Espaciado interno arriba y abajo */
+  border-bottom: 0.313em solid #34495e; /* Línea decorativa en la parte inferior */
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 1); /* Añade una sombra para dar profundidad */
+  margin-bottom: 3.75em; /* Aumentamos el margen inferior */
+}
+
+/* Encabezados principales */
+header.header-principal h1 {
+  color: #c3d8f7;
+  text-align: center;
+  font-size: 3em; /* Tamaño destacado */
+  text-decoration: underline; /* Opcional: agrega subrayado */
+  margin-bottom: 1.25em;
+}
+
+header.header-principal h2 {
+  color: #070244; /* Color del texto */
+  text-align: center; /* Centra el texto */
+  font-size: 2em; /* Tamaño de fuente */
+  margin-bottom: 0.938em; /* Espaciado inferior */
+  font-family: 'Arial', serif; /* Fuente sugerente */
+}
+
+/* Estilo de imágenes */
+img.imagen_main-pantalla_grande {
+  /* display: block; 	->  lo quito para que el hecho de que aparezca o no dependa del tipo de dispositivo usado. [que está arriba definido]*/
+  margin: 1.563em auto;
+  border: 0.625em solid #ddd;
+  border-radius: 0.625em;
+  width: 60%;
+  box-shadow: 0 0.625em 1.25em rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img.imagen_main-pantalla_pequena {
+  /* display: block; 	->  lo quito para que el hecho de que aparezca o no dependa del tipo de dispositivo usado. [que está arriba definido]*/
+  margin: 1.563em auto;
+  border: 0.625em solid #ddd;
+  border-radius: 0.625em;
+  width: 60%;
+  box-shadow: 0 0.625em 1.25em rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img:hover {
+  transform: scale(1.08); /* Zoom al pasar el cursor */
+  box-shadow: 0 0.938em 1.875em rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+
+h3#titulo_tendencias {
+  color: #34495e; /* Cambia el color del texto */
+  font-size: 1.9em; /* Define el tamaño de la fuente */
+  margin-bottom: 2.188em; /* Espacio inferior */
+  text-align: center; /* Alineación del texto */
+  font-style: italic; /* Opcional: agrega cursiva */
+  text-decoration: underline; /* Opcional: agrega subrayado */
+  margin-left: auto; /* Centrado horizontal */
+  margin-right: auto; /* Centrado horizontal */
+  width: fit-content; /* Ajusta el ancho al contenido del texto */
+}
+
+/* Encabezado dentro del índice */
+div.introduccion h3 {
+  text-decoration: underline; /* Subraya el texto */
+  text-align: left; /* Alinea el texto a la izquierda */
+  color: #070244; /* Color del texto */
+  font-size: 1.6em; /* Tamaño de la fuente */
+  font-weight: bold; /* Hace que el texto sea más llamativo */
+  margin-left: 5%;
+}
+
+div.introduccion p {
+  font-size: 1.35em; /* Tamaño del texto ligeramente mayor */
+  line-height: 1.6; /* Espaciado entre líneas cómodo */
+  color: #2c3e50; /* Color de texto oscuro y elegante */
+  text-align: justify; /* Texto justificado */
+  font-weight: normal; /* Peso estándar */
+    margin-right: auto; /* Centramos los p */
+}
+
+
+
+/* Estilo para el contenedor de navegación */
+nav.indice {
+  background-color: #f4f4f4; /* Fondo gris claro */
+  border: 0.063em solid #ccc; /* Borde gris claro */
+  border-radius: 3.125em; /* Bordes redondeados */
+  padding: 1.25em; /* Espaciado interno */
+  box-shadow: 0.125em 0.125em 0.313em rgba(0, 0, 0, 0.1); /* Sombra suave */
+  margin: 0 auto 1.25em; /* Centra horizontalmente el contenedor y agrega margen inferior */
+  width: 30%; /* Ancho fijo para el contenedor */
+}
+
+/* Lista centrada dentro del índice */
+nav.indice ul {
+  list-style-type: none; /* Sin puntos de lista */
+  margin: 0 auto; /* Centra la lista horizontalmente */
+  padding: 0; /* Sin espaciado interno */
+  text-align: center; /* Alinea los elementos de la lista al centro */
+}
+
+/* Estilo para cada elemento de la lista */
+nav.indice ul li {
+  margin-bottom: 0.625em; /* Espacio inferior entre los elementos */
+}
+
+/* Estilo para los enlaces dentro de los elementos de la lista */
+nav.indice ul li a {
+  text-decoration: none; /* Elimina el subrayado predeterminado */
+  color: #007BFF; /* Azul vibrante para los enlaces */
+  font-weight: bold; /* Enlaces en negrita */
+  font-size: 1.25em; /* Tamaño del texto de los enlaces */
+  transition: color 0.3s ease-in-out; /* Transición suave en cambios de color */
+}
+
+/* Hover para los enlaces */
+nav.indice ul li a:hover {
+  color: #0056b3; /* Azul más oscuro al pasar el cursor */
+  text-decoration: underline; /* Subraya el enlace al pasar el cursor */
+}
+
+/* Encabezado dentro del índice */
+nav.indice h2 {
+  text-decoration: underline; /* Subraya el texto */
+  text-align: left; /* Alinea el texto a la izquierda */
+  color: #070244; /* Color del texto */
+  font-size: 1.2em; /* Tamaño de la fuente */
+  font-weight: bold; /* Hace que el texto sea más llamativo */
+  margin-left: 8%;
+}
+
+
+/* Clases personalizadas */
+.mi_pagina,
+.explicacion_ias,
+.aplicacion_ias {
+  max-width: 75%; /* Ancho máximo del cuadro */
+  margin: 4% auto; /* Centra la sección */
+  background-color: #ffffff; /* Fondo blanco */
+  padding: 1.563em; /* Espaciado interno */
+  border-radius: 0.75em; /* Bordes redondeados */
+  box-shadow: 0 0.375em 0.75em rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+}
+
+.mi_pagina h2,
+.explicacion_ias h2,
+.aplicacion_ias h2 {
+  text-align: center;
+  color: #0078d4; /* Azul destacado */
+  margin-bottom: 1.25em;
+  font-size: 2em; /* Ajuste de tamaño */
+}
+
+.aplicacion_ias h3, .comparacion_ias h2 {
+  color: #34495e; /* Color del texto */
+  font-size: 1.8em; /* Tamaño de la fuente */
+  margin-bottom: 0.625em; /* Espacio debajo del encabezado */
+  margin-left: 2%; /* Empuja el encabezado un poco hacia la derecha */
+  margin-right: 20%; /* Ajusta el margen derecho para evitar desbalance */
+  text-align: left; /* Alinea el texto a la izquierda dentro de su espacio */
+  text-decoration: underline; /* Añade subrayado al texto */
+}
+
+.mi_pagina h4,
+.explicacion_ias h4,
+.aplicacion_ias h4 {
+  margin-left: 4%; /* Empuja el encabezado un poco hacia la derecha */
+  color: #0078d4; /* Azul destacado */
+  margin-bottom: 1.25em;
+  font-size: 1.5em;
+}
+
+/* Listas en las secciones */
+.explicacion_ias ul,
+.aplicacion_ias ul {
+  margin-left: 1.25em; /* Ajuste del margen izquierdo */
+  margin-bottom: 0.625em; /* Espacio entre elementos */
+  list-style-type: circle; /* Viñetas en círculo */
+}
+
+.explicacion_ias li,
+.aplicacion_ias li {
+  margin-bottom: 0.313em; /* Espaciado entre los elementos de la lista */
+}
+
+
+/* Diseño general de la tabla */
+.comparacion_ias table {
+  width: 80%; /* Ocupa todo el ancho del contenedor */
+  margin: 1.25em auto; /* Centra la tabla */
+  border-collapse: collapse; /* Elimina los espacios entre celdas */
+  border: 1px solid #ccc; /* Agrega un borde general */
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+}
+
+/* Estilo para encabezados */
+.comparacion_ias table th {
+  background-color: #0078d4; /* Azul destacado */
+  color: #ffffff; /* Texto blanco */
+  text-align: center; /* Centra el texto */
+  padding: 0.938em; /* Espaciado interno */
+  font-size: 1.2em; /* Tamaño de fuente */
+  border: 1px solid #ccc; /* Bordes entre las celdas */
+}
+
+/* Estilo para celdas */
+.comparacion_ias table td {
+  background-color: #f9f9f9; /* Fondo claro para las celdas */
+  color: #2c3e50; /* Texto oscuro */
+  padding: 0.938em; /* Espaciado interno */
+  text-align: center; /* Centra el texto en cada celda */
+  border: 1px solid #ddd; /* Líneas suaves entre celdas */
+}
+
+/* Estilo para la primera celda de cada fila */
+.comparacion_ias table td:first-child {
+  font-weight: bold;
+  background-color: #eef6fc; /* Fondo azul claro */
+  text-align: left; /* Alinea el texto a la izquierda */
+  padding-left: 1.25em; /* Espaciado adicional */
+}
+
+/* Hover en las filas */
+.comparacion_ias table tr:hover td {
+  background-color: #e3eaf5; /* Fondo destacado al pasar el cursor */
+  transition: background-color 0.3s ease-in-out; /* Transición suave */
+}
+
+/* Estilo para los enlaces dentro de las celdas */
+.comparacion_ias table td a {
+  color: #007BFF; /* Azul para los enlaces */
+  text-decoration: none; /* Sin subrayado */
+  font-weight: bold; /* Texto en negrita */
+  transition: color 0.3s ease; /* Transición para el color */
+}
+
+/* Hover en los enlaces */
+.comparacion_ias table td a:hover {
+  color: #0056b3; /* Azul más oscuro en hover */
+  text-decoration: underline; /* Subrayado en hover */
+}
+
+
+/* Contenedor principal con flex en columna (vertical) */
+.seguridad-ia {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.seguridad-ia h3 {
+  margin-left: 4%; /* Empuja el encabezado un poco hacia la derecha */
+  color: #0078d4; /* Azul destacado */
+  margin-bottom: 1.25em;
+  font-size: 1.95em;
+}
+
+/* Elementos hijos principales (contenedores de las filas) */
+.seguridad-ia > div {
+  display: flex;
+  flex-direction: row;
+  background-color: #1289d1;
+  width: 75%;
+  margin: 10px auto;
+  text-align: center;
+  font-size: 30px;
+  justify-content: space-around;
+  align-items: stretch; /* Hace que todos los elementos tengan la misma altura */
+}
+
+/* Elementos dentro de cada fila */
+.riesgos > div, .beneficios > div {
+  background-color: #d6d6d6;
+  padding: 20px;
+  margin: 5px;
+  flex: 1;
+}
+
+/* Estilo para los ítems de la lista con texto más pequeño y justificado */
+.riesgos ul li, .beneficios ul li {
+  font-size: 0.75em;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* Asegura alineación de listas */
+#lista-riesgos, #lista-beneficios {
+  text-align: justify;
+}
+
+
+/* Estilo para el formulario de contacto */
+.formulario_contacto {
+  background-color: #f9f9f9;
+  padding: 1.25em;
+  border-radius: 0.75em;
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 37.5em;
+  margin: 3.125em auto;
+  text-align: left;
+}
+
+.formulario_contacto h2 {
+  text-align: center;
+  color: #0078d4;
+  margin-bottom: 1.25em;
+  font-size: 2em;
+}
+
+.formulario_contacto label {
+  font-weight: bold;
+  margin-top: 0.625em;
+  display: block;
+  color: #34495e;
+}
+
+.formulario_contacto input,
+.formulario_contacto textarea {
+  width: calc(100% - 1.25em); /* Reduce un poco el ancho para dejar espacio interior */
+  padding: 0.625em;
+  margin-top: 0.313em;
+  margin-bottom: 0.938em;
+  border: 0.063em solid #ddd;
+  border-radius: 0.5em;
+  font-size: 1em;
+}
+
+.formulario_contacto button {
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.625em 1.25em;
+  font-size: 1em;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.formulario_contacto button:hover {
+  background-color: #0056b3;
+}
+
+/* Ajuste para la sección de la casilla de verificación */
+.formulario_contacto .checkbox_comunicaciones {
+  display: inline-flex; /* Alinea la casilla y el texto en línea sin quiebres */
+  align-items: center; /* Alinea verticalmente la casilla con el texto */
+  margin-bottom: 0.938em; /* Espacio inferior entre la casilla y los elementos siguientes */
+  gap: 0.313em; /* Añade un espacio controlado entre la casilla y el texto */
+}
+
+.formulario_contacto .checkbox_comunicaciones input[type="checkbox"] {
+  margin: 0; /* Elimina márgenes adicionales que puedan causar separación */
+  transform: scale(1.2); /* Ajusta el tamaño de la casilla si es necesario */
+}
+
+.formulario_contacto .checkbox_comunicaciones label {
+  font-size: 1em; /* Tamaño del texto */
+  color: #34495e; /* Color del texto */
+  margin: 0; /* Elimina márgenes adicionales */
+  white-space: nowrap; /* Evita que el texto pase a una segunda línea */
+}

@@ -1,0 +1,69 @@
+
+/* CSS pensado para imprimir la página en formato PDF */
+
+body {
+  background-color: white; /* Fondo blanco para impresión */
+  color: black; /* Texto en negro para mejor legibilidad */
+  font-family: Arial, sans-serif; /* Fuente simple y universal */
+  font-size: 12pt; /* Tamaño adecuado para impresión */
+  line-height: 1.5; /* Espaciado entre líneas */
+  margin: 0; /* Elimina márgenes adicionales */
+  padding: 1em; /* Espaciado interno en la impresión */
+}
+
+/* Ocultar elementos no necesarios */
+header, footer, nav, #contacto, .formulario_contacto, img {
+  display: none !important; /* No incluir encabezados, pies de página, imágenes o formularios en la impresión */
+}
+
+/* Estilo para títulos */
+h1, h2, h3 {
+  font-size: 14pt; /* Tamaño más grande para los encabezados */
+  font-weight: bold; /* Resalta los títulos */
+  margin: 0.5em 0; /* Espaciado entre los encabezados */
+  text-align: left; /* Alineación a la izquierda */
+}
+
+/* Estilo para párrafos */
+p {
+  text-align: justify; /* Justificación para apariencia profesional */
+  margin: 0.5em 0; /* Espaciado entre párrafos */
+}
+
+/* Tablas: Simplificar estilos para impresión */
+table {
+  width: 100%; /* Ancho completo para la impresión */
+  border-collapse: collapse; /* Elimina espacios entre celdas */
+}
+
+table th, table td {
+  border: 1px solid black; /* Bordes oscuros para distinguir las celdas */
+  padding: 0.5em; /* Espaciado interno */
+  text-align: left; /* Texto alineado a la izquierda */
+  font-size: 12pt; /* Tamaño de texto adecuado */
+}
+
+/* Listas: Ajustar para impresión */
+ul, ol {
+  margin-left: 1.5em; /* Añade un margen izquierdo */
+  margin-bottom: 0.5em; /* Espaciado entre listas */
+}
+
+li {
+  margin-bottom: 0.3em; /* Espaciado entre elementos de la lista */
+}
+
+/* Estilo para enlaces */
+a {
+  color: black; /* Elimina colores brillantes */
+  text-decoration: none; /* Evita subrayado */
+}
+
+a:hover {
+  text-decoration: underline; /* Opcional: subrayar en hover */
+}
+
+/* Evita cortes incómodos en palabras o tablas */
+* {
+  page-break-inside: avoid; /* Evitar cortes en el medio de elementos */
+}
