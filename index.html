@@ -68,7 +68,7 @@
     <li><a href="#aplicacion">Aplicación de IAs</a></li>
 	<li><a href="#comparacion">Comparación de IAs</a></li>
 	<li><a href="#ciberseguridad">Impacto de las IAs en ciberseguridad</a></li>
-	<li><a href="#contacto">Formulario de contacto</a></li>
+	<li><a href="#ingresoNombre">Formulario de contacto</a></li>
   </ul>
 </nav>
 
@@ -93,7 +93,7 @@
 </div>
   
 <div id="blog" class="mi_pagina">
-    <h2>Mi blog personal de tecnología</h2>
+    <h3>Mi blog personal de tecnología</h3>
     <p> 
   En mi blog trato temas relacionados con mi proceso de aprendizaje de las diferentes temáticas que trato. 
   <br><br> 
@@ -175,7 +175,7 @@
 </div>
 
 <div id="comparacion" class="comparacion_ias">
-  <h2 style="margin-left: 15%;">Comparación de Herramientas de Inteligencia Artificial:</h2>
+  <h3>Comparación de Herramientas de Inteligencia Artificial:</h3>
   <table class="tabla-estilo">
     <thead>
       <tr>
@@ -264,28 +264,46 @@
     </div>
   </div>
 </div>
-	
-<div id="contacto" class="formulario_contacto">
-  <h2>Contáctame</h2>
-  <form action="https://formspree.io/f/xgvazeqj" method="POST">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required>
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    
-    <label for="mensaje">Mensaje:</label>
-    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
-    
-    <div class="checkbox_comunicaciones" >
-      <input type="checkbox" id="recibir_comunicaciones" name="recibir_comunicaciones" value="Sí">
-      <label for="recibir_comunicaciones">Quiero recibir comunicaciones en mi correo.</label>
-    </div>
-    
-    <button type="submit">Enviar</button>
-  </form>
-</div>
 
+<div class="area_pers">
+	<!-- Cuadro de texto inicial -->
+	<div id="ingresoNombre" >
+	  <h3 style="margin-bottom: 80px;"> Acceso al área personalizada </h3>
+	  <p style="margin-bottom: 80px;" id="NombreInfo"> Aquí podrás acceder a herramientas como un formulario de contacto </p>
+	  <label for="nombreUsuario">Primero, introduce tu nombre:</label>
+	  <input type="text" id="nombreUsuario" required>
+	  <button onclick="mostrarFormulario()">Continuar</button>
+	</div>
+
+	<!-- Mensaje con el nombre -->
+	<div id="mensajeNombre">
+	  <p style="font-size: 3.5em; text-decoration: underline; text-align: center"> <strong> ¡Hola, <span id="nombreMostrado"></span>! </strong> </p> 
+	  <br><br>
+	  <p style="font-size: 1.35em;"> Por favor, para ponerte en contacto conmigo rellena el formulario a continuación:</p>
+	</div>
+
+
+	<div id="contacto" class="formulario_contacto">
+	  <h2>Contáctame</h2>
+	  <form action="https://formspree.io/f/xgvazeqj" method="POST">
+		<label for="nombre">Nombre:</label>
+		<input type="text" id="nombre" name="nombre" required>
+		
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required>
+		
+		<label for="mensaje">Mensaje:</label>
+		<textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+		
+		<div class="checkbox_comunicaciones" >
+		  <input type="checkbox" id="recibir_comunicaciones" name="recibir_comunicaciones" value="Sí">
+		  <label for="recibir_comunicaciones">Quiero recibir comunicaciones en mi correo.</label>
+		</div>
+		
+		<button type="submit">Enviar</button>
+	  </form>
+	</div>
+</div>
 
 
 </body>
