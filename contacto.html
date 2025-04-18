@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Contacto</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Vinculación al CSS principal -->
+  <link rel="stylesheet" href="diseño.css" media="screen">
+  <link rel="stylesheet" href="diseño_print.css" media="print"> 
+
+  <!-- Vinculación del archivo JavaScript -->
+  <script defer src="script.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="author" content="Sergio">
+  <meta name="keywords" content="gestión de usuarios, tecnología, seguridad, web">
+  <meta name="robots" content="index, follow">
+</head>
+
+
+<body>
+  <!-- Navbar para la navegación -->
+  <nav class="navegacion_paginas">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="gestion_usuarios.html">Gestión de Usuarios</a></li>
+    </ul>
+  </nav>
+
+  <!-- Sección de gestión de usuarios -->
+  <section class="area_pers">
+    <h2 style="font-size: 3em;">Contacta conmigo</h2>
+    <p>Primero, introduce tu nombre para poder acceder al formulario de contacto: <br><br> Ten en cuenta que la respuesta a tu mensaje puede tardar unos días. Si es algo urgente, puedes probar con otras formas de contacto.</p>
+    
+    <div id="ingresoNombre">
+      <label for="nombreUsuario">Nombre:</label>
+      <input type="text" id="nombreUsuario" required>
+      <button onclick="mostrarFormulario()">Continuar</button>
+    </div>
+
+    <div id="mensajeNombre">
+      <p style="font-size: 3.5em; text-decoration: underline; text-align: center">
+        <strong>¡Hola, <span id="nombreMostrado"></span>!</strong>
+      </p>
+      <br>
+      <p style="font-size: 1.35em;">Ahora puedes gestionar tu acceso personalizado.<br>Completa los datos del formulario y haz clic en 'Enviar' para contactar conmigo.</p>
+    </div>
+
+    <div id="contacto" class="formulario_contacto">
+      <h2>Contáctame</h2>
+      <form action="https://formspree.io/f/xgvazeqj" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+
+        <div class="checkbox_comunicaciones">
+          <input type="checkbox" id="recibir_comunicaciones" name="recibir_comunicaciones" value="Sí">
+          <label for="recibir_comunicaciones">Quiero recibir comunicaciones en mi correo.</label>
+        </div>
+
+        <button type="submit">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>Haga clic <a href="contacto.html">aquí</a> para volver al inicio <br> Si no has acabado, aquí tienes otras partes de la página:</p>
+	<nav class="footer-nav" style="font-size: 2em;">
+	  <a href="index.html">Página principal</a>
+	  <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+    </nav>
+    <p style="color: #393939;">&copy; 2025 Sergio | Todos los derechos reservados</p>
+  </div>
+</footer>
+
+</body>
+</html>
