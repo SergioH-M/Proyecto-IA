@@ -45,9 +45,12 @@ function mostrarFormulario() {
 }
 
 
-///Gestion usuarios
+///Gestión usuarios
 
 const url = "https://script.google.com/macros/s/AKfycbwd6cBNtosSuIzf6M3lVOyEw5XUb6G2064qLLJx3hYSI21_SFcasbrQC5NECi2i7FAI/exec";
+
+
+// REGISTRO
 
 function mostrarRegistro() {
   console.log("mostrarRegistro() ejecutada");  // Depuración
@@ -55,146 +58,35 @@ function mostrarRegistro() {
   document.getElementById("registroForm").style.display = "block";
 }
 
+function registrarUsuario() {
+  if (!validarRegistro()) return;  // Si la validación falla, no se registra el usuario
 
-function mostrarLogin() {
-  document.getElementById("loginForm").style.display = "block";
-  document.getElementById("registroForm").style.display = "none";
-}
-
-// Función para verificar si hay una sesión creada
-function actualizarInterfaz() {
-  let nombreGuardado = localStorage.getItem("nombreUsuario");
-  let apellidosGuardados = localStorage.getItem("apellidosUsuario");
-  let ambitoGuardado = localStorage.getItem("ambitoUsuario");
-  let botonOpciones = document.getElementById("botonOpciones");
-
-
-  if (nombreGuardado) {
-    if (mensajeBienvenida) document.getElementById("mensajeBienvenida").style.display = "block";
-    document.getElementById("mensajeBienvenida").innerHTML = `¡Hola, <span style='font-weight: italic;'>${nombreGuardado} ${apellidosGuardados}</span>!`;
-	
-    if (nombreGuardado) {
-      botonOpciones.style.display = "block";
-    }
-	
-	console.log("Estado de botones:");
-	console.log("botonVolver:", document.getElementById("botonVolver").style.display);
-	console.log("botonOpciones:", document.getElementById("botonOpciones").style.display);
-
-
-	
-	let loginForm = document.getElementById("loginForm");
-	let registroForm = document.getElementById("registroForm");
-
-    if (loginForm) {  // Solo ejecuta esto si el elemento loginForm existe
-      loginForm.style.display = "none";
-    } else {
-      console.warn("Elemento 'loginForm' no encontrado en el DOM.");
-    }
-	
-    if (registroForm) {  // Solo ejecuta esto si el elemento registroForm existe
-      registroForm.style.display = "none";
-    } else {
-	  if (botonOpciones) botonOpciones.style.display = "none"; // ✅ Ocultar si no hay sesión
-      console.warn("Elemento 'registroForm' no encontrado en el DOM.");
-    }
-}
-  }
-
-// Asignar la función a window.onload sin volverla anónima
-window.onload = actualizarInterfaz;
-
-
-
-function iniciarSesion() {
-  let emailUsuario = document.getElementById("loginEmail").value;
-  let passwordUsuario = document.getElementById("loginPassword").value;
-
-  let datosLogin = new URLSearchParams({
-    email: emailUsuario,
-    password: passwordUsuario,
-    accion: "login"
+  var datos = new URLSearchParams({
+    email: document.getElementById("email").value,
+    password: document.getElementById("password").value,
+    nombre: document.getElementById("nombre").value,
+    apellidos: document.getElementById("apellidos").value,
+    edad: document.getElementById("edad").value,
+	telefono: document.getElementById("telefono").value,
+    ambito: document.getElementById("ambito").value,
+    consentimiento: document.getElementById("consentimiento_emails").checked ? "Sí" : "No",  // Capturando el checkbox
+    accion: "registro"
   });
 
   fetch(url, {
     method: "POST",
-    body: datosLogin
+    body: datos
   })
   .then(response => response.json())
   .then(data => {
+    document.getElementById("mensajeInfoLogin").textContent = data.mensaje;
+
     if (data.status === "success") {
-      console.log("Sesión iniciada, obteniendo datos...");
-      
-      fetch(url, {
-        method: "POST",
-        body: new URLSearchParams({
-          email: emailUsuario,
-          accion: "obtener_datos"
-        })
-      })
-      .then(response => response.json())
-      .then(userData => {
-        if (userData.status === "success") {
-          // Guardar datos recibidos del Google Sheets en `localStorage`
-          localStorage.setItem("nombreUsuario", userData.nombre);
-          localStorage.setItem("apellidosUsuario", userData.apellidos);
-		  localStorage.setItem("emailUsuario", userData.email);
-		  localStorage.setItem("passwordUsuario", userData.password);
-		  localStorage.setItem("telefonoUsuario", userData.telefono);
-          localStorage.setItem("ambitoUsuario", userData.ambito);
-          localStorage.setItem("consentimientoUsuario", userData.consentimiento);
-          localStorage.setItem("emailUsuario", emailUsuario);
-
-          console.log("Datos guardados en localStorage");
-
-          actualizarInterfaz(); // Usamos los datos para actualizar la UI
-		  
-		  document.getElementById("botonOpciones").style.display = "block";
-        }
-      });
-    } else {
-      document.getElementById("mensajeInfoLogin").textContent = "Correo o contraseña incorrectos.";
+	  console.log("Teléfono enviado:", document.getElementById("telefono").value);
+      mostrarLogin();  // Volver al login después del registro exitoso
     }
   });
 }
-
-
-
-function validarRegistro() {
-  var email = document.getElementById("email").value;
-  var password = document.getElementById("password").value;
-  var apellidos = document.getElementById("apellidos").value;
-  var edad = document.getElementById("edad").value;
-  var mensajeInfo = document.getElementById("mensajeInfoLogin");
-
-  // Validar que el email contenga '@' y termine en '.com' o '.es'
-  if (!email.includes("@") || (!email.endsWith(".com") && !email.endsWith(".es"))) {
-    mensajeInfo.textContent = "Introduce un correo válido.";
-    return false;
-  }
-  
-  // Validar que la edad no supere los 100 años
-  if (edad > 100 || edad < 0) {
-    mensajeInfo.textContent = "Introduce una edad válida.";
-    return false;
-  }
-
-  // Validar la contraseña con la función `validarContrasena()`
-  var resultadoValidacion = validarContrasena(password, true);		//Con el true indicamos a la función validarContrasena que SÍ venimos del registro
-  if (resultadoValidacion !== true) {
-    mensajeInfo.textContent = "Error: " + resultadoValidacion; // Muestra los errores de la contraseña
-    return false;
-  }
-
-  // Validar que los apellidos tengan al menos un espacio
-  if (!apellidos.includes(" ")) {
-    mensajeInfo.textContent = "Debes ingresar dos apellidos.";
-    return false;
-  }
-
-  return true;  // Si todas las validaciones pasan, se permite el registro
-}
-
 
 function validarContrasena(contrasena, registro) {
   var mensajeError = [];
@@ -239,38 +131,162 @@ function validarContrasena(contrasena, registro) {
   }
 }
 
+function validarRegistro() {
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+  var apellidos = document.getElementById("apellidos").value;
+  var edad = document.getElementById("edad").value;
+  var mensajeInfo = document.getElementById("mensajeInfoLogin");
 
-function registrarUsuario() {
-  if (!validarRegistro()) return;  // Si la validación falla, no se registra el usuario
+  // Validar que el email contenga '@' y termine en '.com' o '.es'
+  if (!email.includes("@") || (!email.endsWith(".com") && !email.endsWith(".es"))) {
+    mensajeInfo.textContent = "Introduce un correo válido.";
+    return false;
+  }
+  
+  // Validar que la edad no supere los 100 años
+  if (edad > 100 || edad < 0) {
+    mensajeInfo.textContent = "Introduce una edad válida.";
+    return false;
+  }
 
-  var datos = new URLSearchParams({
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
-    nombre: document.getElementById("nombre").value,
-    apellidos: document.getElementById("apellidos").value,
-    edad: document.getElementById("edad").value,
-	telefono: document.getElementById("telefono").value,
-    ambito: document.getElementById("ambito").value,
-    consentimiento: document.getElementById("consentimiento_emails").checked ? "Sí" : "No",  // Capturando el checkbox
-    accion: "registro"
+  // Validar la contraseña con la función `validarContrasena()`
+  var resultadoValidacion = validarContrasena(password, true);		//Con el true indicamos a la función validarContrasena que SÍ venimos del registro
+  if (resultadoValidacion !== true) {
+    mensajeInfo.textContent = "Error: " + resultadoValidacion; // Muestra los errores de la contraseña
+    return false;
+  }
+
+  // Validar que los apellidos tengan al menos un espacio
+  if (!apellidos.includes(" ")) {
+    mensajeInfo.textContent = "Debes ingresar dos apellidos.";
+    return false;
+  }
+
+  return true;  // Si todas las validaciones pasan, se permite el registro
+}
+
+
+
+// LOGIN (y referido al área privada)
+
+function mostrarLogin() {
+  document.getElementById("loginForm").style.display = "block";
+  document.getElementById("registroForm").style.display = "none";
+}
+
+function iniciarSesion() {
+  document.getElementById("mensajeInfoLogin").textContent = "Iniciando sesión en su cuenta...";
+	
+  let emailUsuario = document.getElementById("loginEmail").value;
+  let passwordUsuario = document.getElementById("loginPassword").value;
+
+  let datosLogin = new URLSearchParams({
+    email: emailUsuario,
+    password: passwordUsuario,
+    accion: "login"
   });
 
   fetch(url, {
     method: "POST",
-    body: datos
+    body: datosLogin
   })
   .then(response => response.json())
   .then(data => {
-    document.getElementById("mensajeInfoLogin").textContent = data.mensaje;
-
     if (data.status === "success") {
-	  console.log("Teléfono enviado:", document.getElementById("telefono").value);
-      mostrarLogin();  // Volver al login después del registro exitoso
+      console.log("Sesión iniciada, obteniendo datos...");
+
+      fetch(url, {
+        method: "POST",
+        body: new URLSearchParams({
+          email: emailUsuario,
+          accion: "obtener_datos"
+        })
+      })
+      .then(response => response.json())
+      .then(userData => {
+        if (userData.status === "success") {
+          
+		  // Guardamos los datos del usuario en localStorage
+          localStorage.setItem("nombreUsuario", userData.nombre);
+          localStorage.setItem("apellidosUsuario", userData.apellidos);
+          localStorage.setItem("emailUsuario", userData.email);
+		  localStorage.setItem("telefonoUsuario", userData.telefono);
+		  localStorage.setItem("ambitoUsuario", userData.ambito);
+		  localStorage.setItem("consentimientoUsuario", userData.consentimiento);
+		  
+          console.log("Datos guardados en localStorage");
+		  
+
+          actualizarInterfaz();
+        }
+      });
+    } else {
+      document.getElementById("mensajeInfoLogin").textContent = "Correo o contraseña incorrectos.";
     }
   });
 }
 
+//Función para verificar si hay una sesión iniciada (y modificar la UX en consonancia)
+function actualizarInterfaz() {
+  let nombreGuardado = localStorage.getItem("nombreUsuario");
+  let apellidosGuardados = localStorage.getItem("apellidosUsuario");
+  let botonOpciones = document.getElementById("botonOpciones");
 
+  //Si hay un nombre guardado es que hay una sesión activa
+  if (nombreGuardado) {
+    document.getElementById("mensajeBienvenida").style.display = "block";
+    document.getElementById("mensajeBienvenida").innerHTML = `¡Hola, <span style='font-weight: italic;'>${nombreGuardado} ${apellidosGuardados}</span>!`;
+	
+	//Mostramos el div con los elementos del área privada si existe
+	if (document.getElementById("area_privada")) {
+	  document.getElementById("area_privada").style.display = "block";
+	  obtenerNoticias();
+	}
+	
+    if (botonOpciones) {
+      botonOpciones.style.display = "block";
+    }
+
+    let formulario_area_privada = document.getElementById("formulario_area_privada");
+    let registroForm = document.getElementById("registroForm");
+
+	//Si existe el formulario, lo ocultamos
+    if (formulario_area_privada) {
+      formulario_area_privada.style.display = "none";
+    }
+
+
+  } else {
+	//Si no hay sesión activa, mostramos el formulario de login/registro y ocultamos el área privada (solo si hay esos elementos en la página)
+    if (document.getElementById("area_privada") && document.getElementById(formulario_area_privada)) {
+	  document.getElementById("area_privada").style.display = "none";
+      document.getElementById(formulario_area_privada).style.display = "block";  
+	}
+  }
+}
+
+// Ejecutar la función al cargar la página
+window.onload = actualizarInterfaz;
+
+
+//Función para mostrar la hora actual
+function actualizarFechaHora() {
+  let ahora = new Date();
+  let opciones = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit"};
+  let formatoFechaHora = ahora.toLocaleDateString("es-ES", opciones);
+  
+  if (document.getElementById("fechaHora")) {
+	document.getElementById("fechaHora").textContent = `📅 ${formatoFechaHora}`;
+  }
+}
+
+// Ejecutar la función cada minuto para mantener la hora actualizada
+actualizarFechaHora();	//Esto lo hacemos para que se actualice la primera vez
+setInterval(actualizarFechaHora, 60 * 1000);
+
+
+// OPCIONES USUARIO
 
 
 function mostrarDatosUsuario() {
@@ -298,8 +314,6 @@ function mostrarDatosUsuario() {
   document.getElementById("usuarioAmbito").textContent = ambitoUsuario;
   document.getElementById("usuarioConsentimiento").textContent = consentimientoUsuario;
 }
-
-
 
 // Función para mostrar u ocultar el formulario de cambio de contraseña
 function mostrarFormularioContrasena() {
@@ -417,11 +431,54 @@ function eliminarCuenta() {
   });
 }
 
-
-
-// Función para cerrar sesión
 function cerrarSesion() {
-  localStorage.clear(); // Borrar todos los datos de sesión
-  window.location.href = "gestion_usuarios.html"; // Redirigir al inicio de sesión
+  localStorage.clear();
+  window.location.href = "area_privada.html"; // Redirigir al inicio de sesión
 }
 
+//API de noticias
+
+function obtenerNoticias() {
+  const apiKey = "pub_845918ea1efe12520fd91f9b8abf4074084b5"; // API Key correcta
+  let ambitoUsuario = localStorage.getItem("ambitoUsuario") || "General"; // Obtener ámbito del usuario o usar un valor por defecto
+
+  let filtroTecnologia = "inteligencia artificial OR machine learning OR big data OR IoT OR automatización OR tecnología OR innovación";
+
+  let filtroEspecifico = {
+    "Educativo": "educación OR aprendizaje OR ciencia OR universidades OR formación",
+    "Profesional": "negocios OR emprendimiento OR liderazgo OR economía OR empresas",
+    "Personal": "salud OR entretenimiento OR bienestar OR estilo de vida OR deportes"
+  };
+
+  let filtroBusqueda = `${filtroTecnologia} OR ${filtroEspecifico[ambitoUsuario] || ""}`;  
+
+  const urlNoticias = `https://newsdata.io/api/1/latest?apikey=${apiKey}&category=technology,science,business,health,world&language=es&q=${encodeURIComponent(filtroBusqueda)}`;
+
+  fetch(urlNoticias)
+    .then(response => response.json())
+    .then(data => {
+      if (!data.results || data.results.length === 0) {
+        console.error("No se encontraron noticias relevantes:", data);
+        document.getElementById("contenedorNoticias").innerHTML = "<p>No se encontraron noticias. Intenta más tarde.</p>";
+        return;
+      }
+
+      let noticiasHTML = "";
+      data.results.forEach(noticia => {
+        noticiasHTML += `
+          <div class="noticia">
+            <h4>${noticia.title}</h4>
+            <p>${noticia.description}</p>
+            <a href="${noticia.link}" target="_blank">Leer más</a>
+          </div>
+        `;
+      });
+
+      document.getElementById("contenedorNoticias").innerHTML = noticiasHTML;
+      document.getElementById("noticiasUsuario").style.display = "block"; 
+    })
+    .catch(error => console.error("Error obteniendo noticias:", error));
+}
+
+// Llamar a la función al cargar la página
+document.addEventListener("DOMContentLoaded", obtenerNoticias);

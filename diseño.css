@@ -592,20 +592,20 @@ input {
  
  
  
- /* Mayor margen para el título "Área privada" */
-.area-privada h2 {
-  margin-bottom: 25px;
-  
+
+/* Formularios centrados con tamaño ajustado */
+#formulario_area_privada form {
+  width: 350px; /* Define un tamaño más compacto */
+  margin: auto; /* Centra el formulario */
 }
 
-
-
-.area-privada p {
+#formulario_area_privada p {
   margin-bottom: 10px;
   color: #494949;
   font-size: 0.85em;
 }
 
+/* Headers de los formularios destacados */
 #loginForm h3 {
   margin-bottom: 20px;
   font-size: 1.3em;
@@ -616,11 +616,78 @@ input {
   font-size: 1.3em;
 }
 
-/* Formularios centrados con tamaño ajustado */
-.area-privada form {
-  width: 350px; /* Define un tamaño más compacto */
-  margin: auto; /* Centra el formulario */
+
+/* 📌 Mejorar el diseño del select */
+#ambito {
+  display: block; /* Asegura que esté debajo de la label */
+  width: 100%; /* Ajustar al ancho del formulario */
+  padding: 10px; /* Espaciado interno */
+  font-size: 1.1em;
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #f9f9f9;
+  text-align: center; /* Centrar el texto */
+  margin-top: 8px; /* Espacio entre la label y el select */
 }
+
+
+/* 📌 Contenedor Flexbox para alinear el checkbox y el label */
+.checkbox-container {
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  gap: 8px; /* Espacio entre el checkbox y el texto */
+  justify-content: center; /* Centra los elementos */
+  margin-top: 20px;
+}
+
+/* Ajustes generales del label */
+label[for="consentimiento_emails"] {
+  font-size: 0.85em;
+}
+
+/* Ajustes generales del checkbox */
+#consentimiento_emails {
+  width: 18px;
+  height: 18px;
+}
+
+
+/* Estilo para las noticias mostradas */
+.noticia {
+  width: 80%; /* Reducir el ancho para mejorar la visualización */
+  max-width: 700px; /* Limitar el tamaño en pantallas grandes */
+  margin: 15px auto; /* Centrado con espacio entre noticias */
+  padding: 15px;
+  background-color: #f9f9f9; /* Fondo suave */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+.noticia h4 {
+  font-size: 20px; /* Tamaño del título */
+  color: #333; /* Color oscuro */
+  margin-bottom: 10px;
+}
+
+.noticia p {
+  font-size: 16px; /* Tamaño legible */
+  color: #555; /* Color intermedio */
+}
+
+.noticia a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #0078D7; /* Azul corporativo */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.noticia a:hover {
+  text-decoration: underline; /* Efecto al pasar el cursor */
+}
+
+
+
 
 /* Placeholders en los campos de entrada */
 input::placeholder {
