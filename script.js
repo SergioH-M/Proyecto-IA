@@ -15,26 +15,26 @@ function toggleFondo() {
 
 function mostrarFormulario() {
   // Obtén el valor ingresado por el usuario
-  const nombreUsuario = d.getElementById("nombreUsuario").value;
+  const nombreUsuarioIntroducido = d.getElementById("nombreUsuarioIntroducido").value;
 
   // Verifica que no esté vacío
-  if (nombreUsuario.trim() === "") {
+  if (nombreUsuarioIntroducido.trim() === "") {
     alert("Por favor, introduce tu nombre para poder continuar.");
     return;
   }
   
    // Verifica que no sea muy largo
-  if (nombreUsuario.length > 22) {
+  if (nombreUsuarioIntroducido.length > 22) {
     alert("No se puede introducir un nombre tan largo.");
-	d.getElementById("nombreUsuario").value = ""; // Vacía el campo
+	d.getElementById("nombreUsuarioIntroducido").value = ""; // Vacía el campo
     return;
   }
 
   // Inserta el nombre en el mensaje
-  d.getElementById("nombreMostrado").textContent = nombreUsuario;
+  d.getElementById("nombreMostrado").textContent = nombreUsuarioIntroducido;
 
   // Autocompleta el campo "Nombre" en el formulario de contacto
-  d.getElementById("nombre").value = nombreUsuario;
+  d.getElementById("nombre").value = nombreUsuarioIntroducido;
 
   // Muestra el mensaje y el formulario
   d.getElementById("mensajeNombre").style.display = "block";
@@ -241,7 +241,7 @@ function actualizarInterfaz() {
 	//Mostramos el div con los elementos del área privada si existe
 	if (document.getElementById("area_privada")) {
 	  document.getElementById("area_privada").style.display = "block";
-	  obtenerNoticias();
+	  cargarNoticias();
 	}
 	
     if (botonOpciones) {
@@ -438,10 +438,9 @@ function cerrarSesion() {
 
 //API de noticias
 
-function obtenerNoticias() {
-  const apiKey = "pub_845918ea1efe12520fd91f9b8abf4074084b5"; // API Key correcta
-  let ambitoUsuario = localStorage.getItem("ambitoUsuario") || "General"; // Obtener ámbito del usuario o usar un valor por defecto
-
+function buscarNoticias() {
+  const apiKey = "pub_845918ea1efe12520fd91f9b8abf4074084b5";
+  let ambitoUsuario = localStorage.getItem("ambitoUsuario") || "General";
   let filtroTecnologia = "inteligencia artificial OR machine learning OR big data OR IoT OR automatización OR tecnología OR innovación";
 
   let filtroEspecifico = {
@@ -450,35 +449,111 @@ function obtenerNoticias() {
     "Personal": "salud OR entretenimiento OR bienestar OR estilo de vida OR deportes"
   };
 
-  let filtroBusqueda = `${filtroTecnologia} OR ${filtroEspecifico[ambitoUsuario] || ""}`;  
-
+  let filtroBusqueda = `${filtroTecnologia} OR ${filtroEspecifico[ambitoUsuario] || ""}`;
   const urlNoticias = `https://newsdata.io/api/1/latest?apikey=${apiKey}&category=technology,science,business,health,world&language=es&q=${encodeURIComponent(filtroBusqueda)}`;
 
-  fetch(urlNoticias)
+  return fetch(urlNoticias)
     .then(response => response.json())
     .then(data => {
+      // Si no hay noticias relevantes, mostramos un mensaje alternativo
       if (!data.results || data.results.length === 0) {
         console.error("No se encontraron noticias relevantes:", data);
-        document.getElementById("contenedorNoticias").innerHTML = "<p>No se encontraron noticias. Intenta más tarde.</p>";
-        return;
+        return "<p>No se encontraron noticias. Intenta más tarde.</p>";
       }
 
       let noticiasHTML = "";
+      const MAX_CARACTERES = 200; // Definimos el límite de caracteres
+
       data.results.forEach(noticia => {
+        // Limitar la descripción a 200 caracteres o mostrar un mensaje si está vacía
+        let descripcion = noticia.description 
+          ? noticia.description.substring(0, MAX_CARACTERES) + "..." : "No hay detalles disponibles. Hza clic en 'Leer más' para acceder a la noticia."; 
+
         noticiasHTML += `
           <div class="noticia">
             <h4>${noticia.title}</h4>
-            <p>${noticia.description}</p>
+            <p>${descripcion}</p> <!-- Usamos la descripción limitada o el mensaje alternativo -->
             <a href="${noticia.link}" target="_blank">Leer más</a>
           </div>
         `;
       });
 
-      document.getElementById("contenedorNoticias").innerHTML = noticiasHTML;
-      document.getElementById("noticiasUsuario").style.display = "block"; 
+      return noticiasHTML; // Devuelve las noticias en HTML con descripciones limitadas
     })
-    .catch(error => console.error("Error obteniendo noticias:", error));
+    .catch(error => {
+      console.error("Error obteniendo noticias:", error);
+      return "<p>Error al cargar noticias. Intenta más tarde.</p>";
+    });
 }
 
-// Llamar a la función al cargar la página
-document.addEventListener("DOMContentLoaded", obtenerNoticias);
+
+function cargarNoticias() {
+  let noticiasGuardadas = localStorage.getItem("noticiasHTML");
+
+  if (noticiasGuardadas) {
+    // Si ya hay noticias guardadas, las mostramos sin llamar a la API
+    document.getElementById("contenedorNoticias").innerHTML = noticiasGuardadas;
+    document.getElementById("noticiasUsuario").style.display = "block"; // Mostrar el bloque de noticias
+    console.log("Noticias cargadas desde localStorage");
+  } else {
+    // Si no hay noticias guardadas, hacemos la petición a la API
+    buscarNoticias().then(noticiasHTML => {
+      localStorage.setItem("noticiasHTML", noticiasHTML);
+      document.getElementById("contenedorNoticias").innerHTML = noticiasHTML;
+      document.getElementById("noticiasUsuario").style.display = "block"; // Asegurar que el bloque se muestra
+      console.log("Noticias obtenidas de la API y guardadas en localStorage");
+    });
+  }
+}
+
+
+function actualizarNoticias() {
+  localStorage.removeItem("noticiasHTML"); // Borrar noticias antiguas antes de actualizar
+
+  buscarNoticias().then(noticiasHTML => {
+    localStorage.setItem("noticiasHTML", noticiasHTML);
+    document.getElementById("contenedorNoticias").innerHTML = noticiasHTML;
+    document.getElementById("noticiasUsuario").style.display = "block"; // Mostrar las noticias actualizadas
+    console.log("Noticias actualizadas desde la API");
+  });
+}
+
+
+function toggleNoticias() {
+  const botonNoticias = document.getElementById("toggle_mostrarNoticias");
+  const noticiasUsuario = document.getElementById("noticiasUsuario");
+  const botonVolverArriba = document.getElementById("botonVolverArribaNoticias");  
+
+  if (noticiasUsuario.style.display === "none" || noticiasUsuario.style.display === "") {
+    noticiasUsuario.style.display = "block";
+	botonVolverArriba.style.display = "block";
+    botonNoticias.textContent = "Ocultar noticias"; // Cambio del texto del botón
+  } else {
+    noticiasUsuario.style.display = "none";
+	botonVolverArriba.style.display = "none";
+    botonNoticias.textContent = "Mostrar noticias"; // Cambio del texto del botón
+  }
+}
+
+
+
+function toggleFormulario() {
+  const botonFormulario = document.getElementById("toggle_mostrarFormulario");
+  const formularioAreaPrivada = document.getElementById("contacto_area_privada");
+  let nombreUsuario = localStorage.getItem("nombreUsuario");
+  let apellidosUsuario = localStorage.getItem("apellidosUsuario");
+  let emailUsuario = localStorage.getItem("emailUsuario");
+  
+
+  if (formularioAreaPrivada.style.display === "none" || formularioAreaPrivada.style.display === "") {
+    formularioAreaPrivada.style.display = "block";
+    botonFormulario.textContent = "Ocultar formulario"; // Cambio del texto del botón
+	d.getElementById("nombreForm2").value = nombreUsuario + " " + apellidosUsuario;
+	d.getElementById("emailForm2").value = emailUsuario;
+	
+	
+  } else {
+    formularioAreaPrivada.style.display = "none";
+    botonFormulario.textContent = "Mostrar formulario"; // Cambio del texto del botón
+  }
+}

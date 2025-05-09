@@ -116,9 +116,49 @@
   <p id="fechaHora" style="text-align: center; font-size: 0.9em; font-style: italic; margin-bottom: 12px;"></p>
 
   <!-- Contenedor de noticias personalizadas -->
-  <div id="noticiasUsuario" style="display: none; margin-top: 20px;">
+  <div id="header_noticiasUsuario">
     <h3 style="font-size: 1.45em; font-weight: normal; font-style: italic;">Noticias recomendadas en base a tus intereses</h3>
-    <div id="contenedorNoticias"></div>
+  
+    <button id="toggle_mostrarNoticias" onclick="toggleNoticias()">Ocultar noticias</button>
+	
+	<button id="actualizarNoticias" onclick="actualizarNoticias()">Refrescar noticias</button>
+  
+	<!-- Contenedor para las noticias -->
+	<div id="noticiasUsuario" style="display: none; margin-top: 20px;">
+	  <div id="contenedorNoticias"></div>
+	</div>
+	
+	<a href=#mensajeBienvenida id="botonVolverArribaNoticias"><button>Volver arriba</button></a>	<!-- Botón para volver arriba de las noticias -->	
+	
+    <h3 style="font-size: 1.45em; font-weight: normal; font-style: italic;">Formulario de contacto</h3>
+	<p id="fechaHora" style="text-align: center; font-size: 0.9em; font-style: italic; margin-bottom: 12px;">A través de este formulario puedes contactar conmigo con tu cuenta</p>
+  
+    <button id="toggle_mostrarFormulario" onclick="toggleFormulario()">Mostrar formulario </button>
+	
+	<!-- Contenedor para el formulario de contacto -->
+	<div id="contacto_area_privada" class="formulario_contacto" style="display: none;">
+      <h2>Contáctame</h2>
+      <form action="https://formspree.io/f/xgvazeqj" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombreForm2" name="nombre" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="emailForm2" name="email" required>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensajeForm2" name="mensaje" rows="5" required></textarea>
+
+        <div class="checkbox_comunicaciones">
+          <input type="checkbox" id="recibir_comunicaciones" name="recibir_comunicaciones" value="Sí">
+		  <input type="hidden" name="recibir_comunicaciones" value="No"> <!-- Esto manda un no en caso de que el usuario NO marque la checkbox -->
+		  <label for="recibir_comunicacionesForm2">Quiero recibir comunicaciones en mi correo.</label>
+		</div>
+
+
+		<button type="submit">Enviar</button>
+	  </form>
+	</div>
+	
   </div>
 
 </div>

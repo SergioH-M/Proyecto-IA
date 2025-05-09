@@ -394,6 +394,13 @@ nav.indice ul li a:hover {
   text-decoration: underline;
 }
 
+@media all and (max-width: 500px) {
+  .comparacion_ias table th,
+  .comparacion_ias table td {
+    font-size: 0.8em;
+	padding: 0.5em;
+  }
+}
 
 
 /* Contenedor principal con flex en columna (vertical) */
