@@ -397,7 +397,8 @@ nav.indice ul li a:hover {
 @media all and (max-width: 500px) {
   .comparacion_ias table th,
   .comparacion_ias table td {
-    font-size: 0.8em;
+    font-size: 0.2em;
+	color: red;
 	padding: 0.5em;
   }
 }
