@@ -195,16 +195,6 @@ button:hover {
     max-width: 100%;
   }
 
-  .comparacion_ias table {
-    max-width: 65%;
-    margin: 0 auto;
-  }
-  
-  .comparacion_ias {
-	max-width: 60%;
-	align-items: center;
-	margin: 0 auto;
-  } 
 
 }
 
@@ -224,6 +214,8 @@ header.header-principal {
 header.header-principal h1 {
   color: #c3d8f7;
   font-size: 3em;
+  margin: 0 auto;
+  width: 85%;
   text-decoration: underline;
   margin-bottom: 1.25em;
 }
@@ -231,7 +223,9 @@ header.header-principal h1 {
 header.header-principal h2 {
   color: #070244;
   font-size: 2em;
-  margin-bottom: 0.938em;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 3.35em;
   font-family: 'Arial', serif;
 }
 
@@ -397,9 +391,7 @@ nav.indice ul li a:hover {
 @media all and (max-width: 500px) {
   .comparacion_ias table th,
   .comparacion_ias table td {
-    font-size: 0.2em;
-	color: red;	
-	padding: 0.5em;
+    font-size: 0.7em;
   }
 }
 
