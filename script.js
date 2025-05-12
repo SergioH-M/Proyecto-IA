@@ -15,7 +15,7 @@ function toggleFondo() {
 
 function mostrarFormulario() {
   // Obtén el valor ingresado por el usuario
-  const nombreUsuarioIntroducido = d.getElementById("nombreUsuarioIntroducido").value;
+  const nombreUsuarioIntroducido = d.getElementById("nombreUsuario").value;
 
   // Verifica que no esté vacío
   if (nombreUsuarioIntroducido.trim() === "") {

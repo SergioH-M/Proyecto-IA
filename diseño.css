@@ -24,7 +24,8 @@ p {
 /* Estilo general de todos los h3 */
 h3 {
   font-size: 1.8em; /* Ajusta el tamaño para que sean más grandes */
-  text-align: center; /* Centra todos los títulos h3 */
+  width: 80%;
+  margin: 0 auto;
   font-weight: bold; /* Hace que se vean más destacados */
   margin-bottom: 1em; /* Espaciado inferior para mejor separación */
   text-decoration: underline; /* Opcional: subraya los títulos */
@@ -254,6 +255,7 @@ nav.indice {
   padding: 10px;
   width: 30%;
   margin: 0 auto;
+  margin-bottom: 35px;
 }
 
 nav.indice ul {
